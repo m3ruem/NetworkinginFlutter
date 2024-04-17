@@ -18,7 +18,17 @@ Widget recipeCard(APIRecipe recipe) {
               topLeft: Radius.circular(6.0), topRight: Radius.circular(6.0)),
           // TODO: Replace with image from recipe
           child: CachedNetworkImage(
-              imageUrl: recipe.image, height: 210, fit: BoxFit.fill),
+            imageUrl: recipe.image,
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+              ),
+            ),
+            height: 220,
+            width: 350,
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
         ),
         const SizedBox(
           height: 12.0,
